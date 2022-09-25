@@ -42,6 +42,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress-mysql
+  namespace: wordpress
   labels:
     app: wordpress
 spec:
@@ -71,6 +72,13 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
+        livenessProbe:
+          exec:
+            command:
+            - mysqladmin
+            - -uroot
+            - -p$MYSQL_ROOT_PASSWORD
+            - ping
         readinessProbe:
           tcpSocket:
             port: 3306
