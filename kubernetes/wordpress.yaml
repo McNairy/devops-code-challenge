@@ -49,6 +49,13 @@ spec:
     spec:
       containers:
       - image: wordpress:4.8-apache
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
